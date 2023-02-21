@@ -75,7 +75,10 @@ def animal():
                 print(f"NO PASSWORD FOUND OUT OF {guesses} GUESSES")
                 subprocess.call("sudo rm -f targethashes.txt", shell=True)
                 subprocess.call("sudo umount " + windows_harddrive, shell=True) 
-
+    else:
+        print("")
+        print("INVALID INPUT EXITING")
+        quit()
 
 def main():
     try:
