@@ -39,7 +39,7 @@ def animal():
     print("..............................................") 
     subprocess.call("sudo fdisk -l", shell=True)
     print("..............................................")
-    windows_harddrive = input("Enter Path To Windows Hard Drive / Disk Image: ") 
+    windows_harddrive = input("Enter Path To Windows Disk or Disk Image: ") 
     subprocess.call("sudo mount -o ro " + windows_harddrive + " " + directory, shell=True)
     subprocess.call("sudo cp /mnt/" + directory + "/Windows/System32/config/SAM .", shell=True)
     subprocess.call("sudo cp /mnt/" + directory + "/Windows/System32/config/SYSTEM .", shell=True)
