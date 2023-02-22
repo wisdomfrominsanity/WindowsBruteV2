@@ -87,7 +87,7 @@ def main():
         print("DELETE THE OTHER USER HASHES, SAVE AND THEN EXIT NANO")
         print("YOU NEED A EMPTY DIRECTORY IN /mnt/ TO CONTINUE")
         print("")
-        choice = input("(Y) Make New Directory (C) Clone Drive (N) Continue: ")
+        choice = input("(Y) Make New Directory (C) Create Disk Image (N) Continue: ")
         if choice == "Y":
             mkdir()
             main()
