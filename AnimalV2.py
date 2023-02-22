@@ -1,6 +1,7 @@
 import hashlib, binascii, os, subprocess
 
 def clone():
+    os.chdir("/mnt/")
     inputfile = input("Enter Path to your Disk: ")
     outputfile = input("(include .img ) Enter Name of New Image file: ")
     blocksize = input("(Example: 3M) Enter Desired Block Size: ")
@@ -84,7 +85,7 @@ def main():
         choice = input("(Y) Make New Directory (C) Clone Drive (N) Continue: ")
         if choice == "Y":
             mkdir()
-            animal()
+            main()
         elif choice == "N":
             animal()
         elif choice == "C":
