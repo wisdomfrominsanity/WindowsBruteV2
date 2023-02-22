@@ -52,31 +52,31 @@ def animal():
     with open("targethashes.txt"), "r") as input_file:
         input_hash = input_file.readline()
 
-    with open(input("Enter Path to Your Password List: "), "r", errors="ignore") as password_list:
+        with open(input("Enter Path to Your Password List: "), "r", errors="ignore") as password_list:
         
-        for line in password_list:
+            for line in password_list:
+                if cracked:
+                    break
+
+                else:
+                    password_guess = line.rstrip()
+                    ntlm_hash = coverted_ntlm(password_guess)
+
+                    print(f"GUESSES: {guesses}", end="\r")
+
+                    if match_hashes(input_hash, ntlm_hash):
+                        cracked = True
+
+                    guesses += 1
+
             if cracked:
-                break
-
-            else:
-                password_guess = line.rstrip()
-                ntlm_hash = coverted_ntlm(password_guess)
-
-                print(f"GUESSES: {guesses}", end="\r")
-
-                if match_hashes(input_hash, ntlm_hash):
-                    cracked = True
-
-                guesses += 1
-
-        if cracked:
-            print(f"PASSWORD FOUND: {password_guess}")
-            subprocess.call("sudo rm -f targethashes.txt", shell=True)
+                print(f"PASSWORD FOUND: {password_guess}")
+                subprocess.call("sudo rm -f targethashes.txt", shell=True)
             
-        else:
-            print(f"NO PASSWORD FOUND OUT OF {guesses} GUESSES")
-            subprocess.call("sudo rm -f targethashes.txt", shell=True)
-            subprocess.call("sudo umount " + windows_harddrive, shell=True) 
+            else:
+                print(f"NO PASSWORD FOUND OUT OF {guesses} GUESSES")
+                subprocess.call("sudo rm -f targethashes.txt", shell=True)
+                subprocess.call("sudo umount " + windows_harddrive, shell=True) 
 
 def main():
     try:
