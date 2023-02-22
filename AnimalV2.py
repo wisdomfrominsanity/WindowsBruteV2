@@ -2,6 +2,7 @@ import hashlib, binascii, os, subprocess
 
 def clone():
     os.chdir("/mnt/")
+    subprocess.call("sudo fdisk -l", shell=True)
     inputfile = input("Enter Path to your Disk: ")
     outputfile = input("(include .img ) Enter Name of New Image file: ")
     blocksize = input("(Example: 3M) Enter Desired Block Size: ")
@@ -34,7 +35,7 @@ def animal():
     os.chdir("/mnt/")
     directory = input("Confirm Name of Your Directory: ")
     print("..............................................") 
-    subprocess.call("sudo fdisk -l")
+    subprocess.call("sudo fdisk -l", shell=True)
     print("..............................................")
     windows_harddrive = input("Enter Path To Windows Hard Drive / Disk Image: ") 
     subprocess.call("sudo mount -o ro " + windows_harddrive + " " + directory, shell=True)
