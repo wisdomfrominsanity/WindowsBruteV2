@@ -2,9 +2,11 @@ import hashlib, binascii, os, subprocess
 
 def clone():
     os.chdir("/mnt/")
+
     print("................................................")
     subprocess.call("sudo fdisk -l", shell=True)
     print("................................................")
+
     inputfile = input("Enter Path to your Disk: ")
     outputfile = input("(include .img ) Enter Name of New Image file: ")
     blocksize = input("(Example: 3M) Enter Desired Block Size: ")
