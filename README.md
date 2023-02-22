@@ -1,4 +1,4 @@
-# WindowsBruteV2
+# WindowsBruteV2 (PROJECT FINISHED)
 Requirements: linux, Windows 10 harddrive with password protected users, wordlist sush as Rockyou.txt, python3-impacket and nano installed
 
 Installation:$ sudo apt-get install python3-impacket nano
