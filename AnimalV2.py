@@ -3,9 +3,9 @@ import hashlib, binascii, os, subprocess
 def clone():
     os.chdir("/mnt/")
 
-    print("...............................................")
+    print("..............................................")
     subprocess.call("sudo fdisk -l", shell=True)
-    print("...............................................")
+    print("..............................................")
 
     inputfile = input("Enter Path to your Disk: ")
     outputfile = input("(include .img ) Enter Name of New Image file: ")
