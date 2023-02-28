@@ -49,7 +49,7 @@ def animal():
     subprocess.call("sudo rm -rf SYSTEM SAM", shell=True)
     subprocess.call("sudo nano targethashes.txt", shell=True)
 
-    with open("targethashes.txt"), "r") as input_file:
+    with open("targethashes.txt"), "r" as input_file:
         input_hash = input_file.readline()
 
         with open(input("Enter Path to Your Password List: "), "r", errors="ignore") as password_list:
@@ -105,4 +105,4 @@ def main():
         print("")
         print("KEYBOARD INTERRUPTION EXITING")
         quit()
-Main()
+main()
