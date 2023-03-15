@@ -85,7 +85,7 @@ def main():
         print("..............................................")
         print("When Nano text editor appears with Hashes delete") 
         print("all users and hashes except your target NTLM Hash")
-        print("located at the end of User between ":" and ":::" it should be 32 characters in length.")
+        print("located at the end of User between : and ::: it should be 32 characters in length.")
         print("Save file and Exit Nano to Continue")
         print("YOU NEED A EMPTY DIRECTORY IN /mnt/ TO CONTINUE")
         print("")
