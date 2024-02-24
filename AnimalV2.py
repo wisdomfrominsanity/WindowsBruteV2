@@ -101,7 +101,7 @@ def main():
         else:
             print("")
             print("INVALID INPUT EXITING")
-            quit()
+            main()
 
     except KeyboardInterrupt:
         print("")
