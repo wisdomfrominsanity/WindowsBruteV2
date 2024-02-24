@@ -100,7 +100,7 @@ def main():
             main()
         else:
             print("")
-            print("INVALID INPUT EXITING")
+            print("INVALID INPUT")
             main()
 
     except KeyboardInterrupt:
