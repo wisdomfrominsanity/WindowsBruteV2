@@ -1,5 +1,5 @@
 # WindowsBruteV2 (ONLY USE ON A DRIVE YOU OWN. NOT FOR UNLAWFUL USE!!!)
-Requirements: A Linux computer, Windows 10 hard drive with password protected users, wordlist sush as Rockyou.txt, python3-impacket and nano installed
+Requirements: A Linux computer, Windows 10 hard drive with password protected users, wordlist such as Rockyou.txt, python3-impacket and nano installed
 
 Installation:$ sudo apt-get install python3-impacket nano
 
