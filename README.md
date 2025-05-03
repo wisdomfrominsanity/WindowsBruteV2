@@ -9,6 +9,8 @@ Options within program: Use Capital Y, C, or N
 
 When Nano text editor appears with hashes delete all users and hashes except your target NTLM hash located at the end of a user BETWEEN ":" and ":::" it should be 32 characters in length. Save file and exit Nano to continue
 
+32 character NTLM hash has to be at the start of the first line of the Nano file
+
 (!!!!!DO NOT RENAME NANO FILE!!!!!!)
 
 + I Recommend Cloning your Hard Drive First and Making a Backup Before Running This Program
