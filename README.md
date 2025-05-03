@@ -7,7 +7,7 @@ Run Program:$ sudo python3 AnimalV2.py
 
 Options within program: Use Capital Y, C, or N
 
-When Nano text editor appears with hashes delete all users and hashes except your target NTLM hash located at the end of User BETWEEN ":" and ":::" it should be 32 characters in length. Save file and exit Nano to continue
+When Nano text editor appears with hashes delete all users and hashes except your target NTLM hash located at the end of a user BETWEEN ":" and ":::" it should be 32 characters in length. Save file and exit Nano to continue
 
 (!!!!!DO NOT RENAME NANO FILE!!!!!!)
 
